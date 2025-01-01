@@ -5,7 +5,7 @@ metadata:
   namespace: dev
 spec:
   containers:
-  - name: wil-v1
-    image: wil42/playground:v1
+  - name: wil-v2
+    image: wil42/playground:v2
     ports: 
     - containerPort: 8888

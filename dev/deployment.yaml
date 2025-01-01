@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wil
+  namespace: dev
+spec:
+  containers:
+  - name: wil-v2
+    image: wil42/playground:v2
+    ports: 
+    - containerPort: 8888

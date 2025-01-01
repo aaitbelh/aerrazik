@@ -1,11 +1,19 @@
-apiVersion: v1
-kind: Pod
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  name: wil
+  name: wilApplication
   namespace: dev
 spec:
-  containers:
-  - name: wil-v2
-    image: wil42/playground:v2
-    ports: 
-    - containerPort: 8888
+  project: default
+  source:
+    repoURL: https://github.com/aaitbelh/aerrazik.git
+    targetRevision: HEAD
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    

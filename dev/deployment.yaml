@@ -3,10 +3,12 @@ kind: Pod
 metadata:
   name: wil
   namespace: dev
+  labels:
+    app: wil    # Add labels to match service selector
 spec:
   containers:
-  - name: wil-v2
-    image: wil42/playground:v2
+  - name: wil-v1
+    image: wil42/playground:v1
     ports: 
     - containerPort: 8888
 ---
@@ -22,16 +24,16 @@ spec:
   ports:
   - protocol: TCP
     port: 8888
+    targetPort: 8888
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wil
+  name: wil-ingress    # Changed name to be unique
   namespace: dev
 spec:
   rules:
-  - host: wilpod
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix

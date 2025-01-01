@@ -1,0 +1,210 @@
+- InitNode: null
+  agentsCount: 0
+  agentsRunning: 0
+  hasLoadbalancer: true
+  imageVolume: k3d-dev-cluster-images
+  name: dev-cluster
+  network:
+    Members: null
+    id: ""
+    ipam:
+      Managed: false
+      ipPrefix: ""
+    name: k3d-dev-cluster
+  nodes:
+  - Cmd: null
+    ExtraHosts: null
+    GPURequest: ""
+    IP:
+      IP: 172.22.0.3
+      Static: false
+    K3dEntrypoint: false
+    Memory: ""
+    Networks:
+    - k3d-dev-cluster
+    State:
+      Running: true
+      Started: ""
+      Status: running
+    agentOpts: {}
+    created: "2024-12-16T11:59:38.907257558Z"
+    env:
+    - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - NGINX_VERSION=1.27.0
+    - PKG_RELEASE=2
+    - NJS_VERSION=0.8.4
+    - NJS_RELEASE=2
+    - OS=
+    - ARCH=
+    image: sha256:e26887b407f8a3db088b9bd1dc794c20507fbdb897d524684098436b9d627a18
+    name: k3d-dev-cluster-serverlb
+    portMappings:
+      80/tcp:
+      - HostIp: ""
+        HostPort: "8080"
+      443/tcp:
+      - HostIp: ""
+        HostPort: "8443"
+      "6443":
+      - HostIp: 0.0.0.0
+        HostPort: "35339"
+      8888/tcp:
+      - HostIp: ""
+        HostPort: "8888"
+    restart: true
+    role: loadbalancer
+    runtimeLabels:
+      k3d.cluster: dev-cluster
+      k3d.cluster.imageVolume: k3d-dev-cluster-images
+      k3d.cluster.network: k3d-dev-cluster
+      k3d.cluster.network.external: "false"
+      k3d.cluster.network.id: 523b3d400f3aba7c37b43aec14ad74cf61bc33bd286d00df44511f88fc0a2330
+      k3d.cluster.network.iprange: 172.22.0.0/16
+      k3d.cluster.token: eBnqFmetAGOmpSBaXAxv
+      k3d.cluster.url: https://k3d-dev-cluster-server-0:6443
+      k3d.role: loadbalancer
+      k3d.server.loadbalancer: k3d-dev-cluster-serverlb
+      k3d.version: v5.7.5
+    serverOpts:
+      kubeAPI:
+        Binding:
+          HostIp: ""
+          HostPort: ""
+        Port: ""
+    volumes:
+    - k3d-dev-cluster-images:/k3d/images
+  - Cmd:
+    - server
+    - --tls-san
+    - 0.0.0.0
+    - --tls-san
+    - k3d-dev-cluster-serverlb
+    ExtraHosts: null
+    GPURequest: ""
+    IP:
+      IP: 172.22.0.2
+      Static: false
+    K3dEntrypoint: false
+    Memory: ""
+    Networks:
+    - k3d-dev-cluster
+    State:
+      Running: true
+      Started: ""
+      Status: running
+    agentOpts: {}
+    created: "2024-12-16T11:59:38.869514092Z"
+    env:
+    - K3S_TOKEN=eBnqFmetAGOmpSBaXAxv
+    - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/bin/aux
+    - CRI_CONFIG_FILE=/var/lib/rancher/k3s/agent/etc/crictl.yaml
+    image: sha256:329a4f5c8b392fd452f65d6ff1f169e33d222d402c5f020714402459b834b7d3
+    name: k3d-dev-cluster-server-0
+    restart: true
+    role: server
+    runtimeLabels:
+      k3d.cluster: dev-cluster
+      k3d.cluster.imageVolume: k3d-dev-cluster-images
+      k3d.cluster.network: k3d-dev-cluster
+      k3d.cluster.network.external: "false"
+      k3d.cluster.network.id: 523b3d400f3aba7c37b43aec14ad74cf61bc33bd286d00df44511f88fc0a2330
+      k3d.cluster.network.iprange: 172.22.0.0/16
+      k3d.cluster.token: eBnqFmetAGOmpSBaXAxv
+      k3d.cluster.url: https://k3d-dev-cluster-server-0:6443
+      k3d.role: server
+      k3d.server.api.host: 0.0.0.0
+      k3d.server.api.hostIP: 0.0.0.0
+      k3d.server.api.port: "35339"
+      k3d.server.loadbalancer: k3d-dev-cluster-serverlb
+      k3d.version: v5.7.5
+    serverOpts:
+      kubeAPI:
+        Binding:
+          HostIp: 0.0.0.0
+          HostPort: "35339"
+        Port: ""
+        host: 0.0.0.0
+    volumes:
+    - k3d-dev-cluster-images:/k3d/images
+  serverLoadBalancer:
+    Cmd: null
+    ExtraHosts: null
+    GPURequest: ""
+    IP:
+      IP: 172.22.0.3
+      Static: false
+    K3dEntrypoint: false
+    Memory: ""
+    Networks:
+    - k3d-dev-cluster
+    State:
+      Running: true
+      Started: ""
+      Status: running
+    agentOpts: {}
+    config:
+      ports:
+        80.tcp:
+        - k3d-dev-cluster-server-0
+        443.tcp:
+        - k3d-dev-cluster-server-0
+        6443.tcp:
+        - k3d-dev-cluster-server-0
+        8888.tcp:
+        - k3d-dev-cluster-server-0
+      settings:
+        workerConnections: 1024
+    created: "2024-12-16T11:59:38.907257558Z"
+    env:
+    - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - NGINX_VERSION=1.27.0
+    - PKG_RELEASE=2
+    - NJS_VERSION=0.8.4
+    - NJS_RELEASE=2
+    - OS=
+    - ARCH=
+    image: sha256:e26887b407f8a3db088b9bd1dc794c20507fbdb897d524684098436b9d627a18
+    name: k3d-dev-cluster-serverlb
+    portMappings:
+      80/tcp:
+      - HostIp: ""
+        HostPort: "8080"
+      443/tcp:
+      - HostIp: ""
+        HostPort: "8443"
+      "6443":
+      - HostIp: 0.0.0.0
+        HostPort: "35339"
+      8888/tcp:
+      - HostIp: ""
+        HostPort: "8888"
+    restart: true
+    role: loadbalancer
+    runtimeLabels:
+      k3d.cluster: dev-cluster
+      k3d.cluster.imageVolume: k3d-dev-cluster-images
+      k3d.cluster.network: k3d-dev-cluster
+      k3d.cluster.network.external: "false"
+      k3d.cluster.network.id: 523b3d400f3aba7c37b43aec14ad74cf61bc33bd286d00df44511f88fc0a2330
+      k3d.cluster.network.iprange: 172.22.0.0/16
+      k3d.cluster.token: eBnqFmetAGOmpSBaXAxv
+      k3d.cluster.url: https://k3d-dev-cluster-server-0:6443
+      k3d.role: loadbalancer
+      k3d.server.loadbalancer: k3d-dev-cluster-serverlb
+      k3d.version: v5.7.5
+    serverOpts:
+      kubeAPI:
+        Binding:
+          HostIp: ""
+          HostPort: ""
+        Port: ""
+    volumes:
+    - k3d-dev-cluster-images:/k3d/images
+  serversCount: 1
+  serversRunning: 1
+  volumes:
+  - k3d-dev-cluster-images
+
